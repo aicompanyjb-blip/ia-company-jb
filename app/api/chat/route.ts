@@ -7,7 +7,7 @@ type Msg = { role: "user" | "assistant" | "system"; content: string };
 
 function fallbackReply() {
   return (
-    "Ahora mismo el asistente IA está en mantenimiento (límite de uso). " +
+    "Ahora mismo el asistente IA está en mantenimiento. " +
     "Para una cotización rápida, escríbeme por WhatsApp desde el botón de la página y te atiendo enseguida."
   );
 }
