@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Analytics } from "@vercel/analytics/next"
+import ChatWidget from "./components/ChatWidget";
+<ChatWidget />
 
 type BillingPeriod = "mensual" | "semestral" | "anual";
 type PlanName = "Starter" | "Pro" | "Elite";
