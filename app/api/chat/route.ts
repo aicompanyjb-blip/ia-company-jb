@@ -1,17 +1,40 @@
+import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+
+type Msg = { role: "user" | "assistant" | "system"; content: string };
+
 export async function POST(req: Request) {
-  const { message } = (await req.json()) as { message?: string };
+  try {
+    const body = (await req.json()) as { messages?: Msg[] };
+    const messages = body.messages ?? [];
 
-  const text = (message ?? "").toLowerCase();
+    const last = messages[messages.length - 1];
+    if (!last || last.role !== "user" || !last.content?.trim()) {
+      return NextResponse.json({ error: "Missing user message" }, { status: 400 });
+    }
 
-  let reply =
-    "Genial. ¿Tu negocio es clínica, servicios o alquileres (Airbnb)? ¿Qué quieres automatizar: agendamiento, respuestas, o seguimiento?";
+    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-  if (text.includes("precio") || text.includes("costo")) {
-    reply =
-      "Depende de integraciones y alcance. Si me dices tu tipo de negocio y qué necesitas (agendar, responder, recordatorios), te doy una propuesta.";
+    const system: Msg = {
+      role: "system",
+      content:
+        "Eres el asistente de AI COMPANY JB. Tu objetivo: entender el negocio del usuario y recomendar automatizaciones con IA en WhatsApp (atención, agendamiento, recordatorios e integraciones). Haz preguntas cortas y claras. Si preguntan por precios, explica que depende de integraciones y propone cotizar por WhatsApp.",
+    };
+
+    const trimmed = messages.slice(-12);
+
+    const response = await client.responses.create({
+      model: "gpt-5",
+      input: [system, ...trimmed],
+    });
+
+    return NextResponse.json({ reply: response.output_text });
+  } catch (e: any) {
+    return NextResponse.json(
+      { error: e?.message ?? "Server error" },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json({ reply });
 }

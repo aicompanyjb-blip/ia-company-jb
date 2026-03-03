@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 import ChatWidget from "./components/ChatWidget";
-<ChatWidget />
 
 type BillingPeriod = "mensual" | "semestral" | "anual";
 type PlanName = "Starter" | "Pro" | "Elite";
 
 export default function Home() {
-  const phoneE164 = "593992954635"; 
+  const phoneE164 = "593992954635";
   const waText = encodeURIComponent(
     "Hola, vi tu página y quiero información sobre automatizaciones con IA para mi negocio."
   );
@@ -68,10 +67,10 @@ export default function Home() {
       name: "Starter" as const,
       highlight: false,
       items: [
-        "ChatBot WhatsApp admision",
+        "ChatBot WhatsApp admisión",
         "FAQ servicios/precios",
         "Registro en Google Sheets/CRM",
-        "Soporte 24/7"
+        "Soporte 24/7",
       ],
     },
     {
@@ -81,9 +80,9 @@ export default function Home() {
         "Todo Starter",
         "Clasificación automática",
         "Agendamiento inteligente",
-        "Recordatorios, seguimiento y confirmacion",
+        "Recordatorios, seguimiento y confirmación",
         "Reportes mensuales",
-        "Soporte 24/7"
+        "Soporte 24/7",
       ],
     },
     {
@@ -148,7 +147,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5 py-20 md:py-28">
           <div className="max-w-3xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70">
-              ⚡ Responde y agenda automaticamente 24/7
+              ⚡ Responde y agenda automáticamente 24/7
             </p>
 
             <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
@@ -171,7 +170,7 @@ export default function Home() {
                 rel="noreferrer"
                 className="rounded-2xl bg-emerald-500 px-6 py-3 text-center text-sm font-semibold text-zinc-950 hover:bg-emerald-400"
               >
-                Escribeme por WhatsApp
+                Escríbeme por WhatsApp
               </a>
               <a
                 href="#planes"
@@ -184,7 +183,7 @@ export default function Home() {
             <div className="mt-10 grid grid-cols-1 gap-3 text-sm text-white/70 sm:grid-cols-3">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p className="font-semibold text-white">Atención 24/7</p>
-                <p className="mt-1">Respuestas instantáneas y automaticas.</p>
+                <p className="mt-1">Respuestas instantáneas y automáticas.</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p className="font-semibold text-white">Agendamiento</p>
@@ -240,10 +239,7 @@ export default function Home() {
         <h2 className="text-2xl font-bold md:text-3xl">Cómo trabajamos</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-4">
           {[
-            [
-              "1) Diagnóstico",
-              "Entiendo tu negocio y el flujo ideal para tu negocio.",
-            ],
+            ["1) Diagnóstico", "Entiendo tu negocio y el flujo ideal para tu negocio."],
             ["2) Propuesta", "Te presento el bot y las integraciones."],
             ["3) Implementación", "Configuro, pruebo y dejo listo para operar."],
             ["4) Soporte", "Ajustes y mejoras según necesidad y resultados."],
@@ -283,11 +279,7 @@ export default function Home() {
                   ].join(" ")}
                   type="button"
                 >
-                  {p === "mensual"
-                    ? "Mensual"
-                    : p === "semestral"
-                    ? "Semestral"
-                    : "Anual"}
+                  {p === "mensual" ? "Mensual" : p === "semestral" ? "Semestral" : "Anual"}
                 </button>
               ))}
             </div>
@@ -316,7 +308,6 @@ export default function Home() {
             >
               <p className="text-lg font-semibold">{p.name}</p>
 
-              {/* Precio dinámico (manual por periodo) */}
               <p className="mt-2 text-3xl font-bold">
                 {money.format(price(p.name))}{" "}
                 <span className="text-base font-semibold text-white/70">
@@ -324,7 +315,6 @@ export default function Home() {
                 </span>
               </p>
 
-              {/* Equivalente mensual (solo semestral/anual) */}
               {period !== "mensual" && (
                 <p className="mt-2 text-sm text-white/60">
                   Equivale a{" "}
@@ -369,15 +359,15 @@ export default function Home() {
             ],
             [
               "¿Cuánto tarda?",
-              "Un MVP suele estar listo en 3-7 dias, dependiendo de la intergraciones y alcance",
+              "Un MVP suele estar listo en 3–7 días, dependiendo de las integraciones y el alcance.",
             ],
             [
-              "¿Que necesito para integrar?",
-              "Suele depender de que tipo de ingraciones requiera, implementamos esto a cualquier aplicativo o web",
+              "¿Qué necesito para integrar?",
+              "Depende de lo que quieras conectar (Calendar, Sheets, CRM, etc.). Lo adaptamos a tu proceso y herramientas.",
             ],
             [
               "¿Qué pasa si quiero cambios?",
-              "Se contacta al WhatsApp o escribe a la IA de nuestra web"
+              "Nos escribes por WhatsApp o puedes hablar con la IA aquí en la web para guiarte.",
             ],
           ].map(([q, a]) => (
             <div
@@ -417,6 +407,12 @@ export default function Home() {
           </p>
         </div>
       </footer>
+
+      {/* ✅ Burbuja de chat IA */}
+      <ChatWidget />
+
+      {/* ✅ Analytics (opcional) */}
+      <Analytics />
     </main>
   );
 }

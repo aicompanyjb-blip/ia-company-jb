@@ -12,7 +12,7 @@ export default function ChatWidget() {
     {
       role: "assistant",
       content:
-        "¡Hola! Soy la IA de AI COMPANY JB. ¿Qué tipo de negocio tienes y qué te gustaría automatizar?",
+        "¡Hola! Soy la IA de AI COMPANY JB. ¿Qué tipo de negocio tienes y qué te gustaría automatizar (respuestas, citas, seguimiento)?",
     },
   ]);
 
@@ -28,15 +28,16 @@ export default function ChatWidget() {
     const text = input.trim();
     if (!text || loading) return;
 
+    const nextMsgs: Msg[] = [...messages, { role: "user", content: text }];
+    setMessages(nextMsgs);
     setInput("");
     setLoading(true);
-    setMessages((prev) => [...prev, { role: "user", content: text }]);
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({ messages: nextMsgs }),
       });
 
       const data = (await res.json()) as { reply?: string; error?: string };
@@ -66,7 +67,6 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Ventana */}
       {open && (
         <div className="fixed bottom-24 right-5 z-[9999] w-[92vw] max-w-sm overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 shadow-2xl">
           <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-4 py-3">
@@ -93,10 +93,7 @@ export default function ChatWidget() {
             {messages.map((m, i) => (
               <div
                 key={i}
-                className={[
-                  "flex",
-                  m.role === "user" ? "justify-end" : "justify-start",
-                ].join(" ")}
+                className={m.role === "user" ? "flex justify-end" : "flex justify-start"}
               >
                 <div
                   className={[
@@ -110,9 +107,8 @@ export default function ChatWidget() {
                 </div>
               </div>
             ))}
-            {loading && (
-              <div className="text-xs text-white/60">Escribiendo...</div>
-            )}
+
+            {loading && <div className="text-xs text-white/60">Escribiendo...</div>}
           </div>
 
           <div className="border-t border-white/10 bg-white/5 p-3">
@@ -120,9 +116,7 @@ export default function ChatWidget() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") send();
-                }}
+                onKeyDown={(e) => e.key === "Enter" && send()}
                 placeholder="Escribe tu mensaje..."
                 className="w-full rounded-xl border border-white/10 bg-zinc-950 px-3 py-2 text-sm outline-none placeholder:text-white/40 focus:border-emerald-400/50"
               />
@@ -139,7 +133,6 @@ export default function ChatWidget() {
         </div>
       )}
 
-      {/* Burbuja */}
       <button
         onClick={() => setOpen((v) => !v)}
         className="fixed bottom-5 right-5 z-[9999] inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-zinc-950 shadow-xl hover:bg-emerald-400"
