@@ -19,18 +19,18 @@ export default function Home() {
   const prices: Record<BillingPeriod, Record<PlanName, number>> = {
     mensual: {
       Starter: 149,
-      Pro: 699,
-      Elite: 1399,
+      Pro: 799,
+      Elite: 1499
     },
     semestral: {
-      Starter: 799,
-      Pro: 3699,
-      Elite: 6999,
+      Starter: 249,
+      Pro: 1199,
+      Elite: 2299,
     },
     anual: {
-      Starter: 1499,
-      Pro: 6999,
-      Elite: 12999,
+      Starter: 499,
+      Pro: 1899,
+      Elite: 2899,
     },
   };
 
@@ -65,10 +65,10 @@ export default function Home() {
       name: "Starter" as const,
       highlight: false,
       items: [
-        "Bot FAQ + captura de datos",
-        "Menú / botones básicos",
-        "Entrega en 7–10 días",
-        "Soporte 7 días",
+        "ChatBot WhatsApp admision",
+        "FAQ servicios/precios",
+        "Registro en Google Sheets/CRM",
+        "Soporte 24/7"
       ],
     },
     {
@@ -76,10 +76,11 @@ export default function Home() {
       highlight: true,
       items: [
         "Todo Starter",
-        "Agendamiento con Google Calendar",
-        "Recordatorios y confirmación",
-        "Sheets con registro de leads/citas",
-        "Soporte 30 días",
+        "Clasificación automática",
+        "Agendamiento inteligente",
+        "Recordatorios, seguimiento y confirmacion",
+        "Reportes mensuales",
+        "Soporte 24/7"
       ],
     },
     {
@@ -89,7 +90,7 @@ export default function Home() {
         "Todo Pro",
         "Integraciones avanzadas (n8n)",
         "Rutas por servicio/sucursal",
-        "Reportes y optimización mensual",
+        "Seguimiento post-consulta",
         "Soporte prioritario",
       ],
     },
@@ -365,15 +366,15 @@ export default function Home() {
             ],
             [
               "¿Cuánto tarda?",
-              "Un MVP suele estar listo en 7–14 días, dependiendo de integraciones y alcance.",
+              "Un MVP suele estar listo en 3-7 dias, dependiendo de la intergraciones y alcance",
             ],
             [
-              "¿Necesito Google Calendar?",
-              "Si agendamos citas, sí es lo más práctico. También podemos registrar en Sheets u otras herramientas.",
+              "¿Que necesito para integrar?",
+              "Suele depender de que tipo de ingraciones requiera, implementamos esto a cualquier aplicativo o web",
             ],
             [
               "¿Qué pasa si quiero cambios?",
-              "Se ajusta por iteraciones. Hay soporte y mejoras según el plan elegido.",
+              "Se contacta al WhatsApp o escribe a la IA de nuestra web"
             ],
           ].map(([q, a]) => (
             <div
@@ -408,7 +409,7 @@ export default function Home() {
           </div>
 
           <p className="mt-10 text-xs text-white/40">
-            © {new Date().getFullYear()} AI COMPANY JB. Todos los derechos
+            © {new Date().getFullYear()} IA COMPANY JB, todos los derechos
             reservados.
           </p>
         </div>
