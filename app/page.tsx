@@ -6,7 +6,7 @@ type BillingPeriod = "mensual" | "semestral" | "anual";
 type PlanName = "Starter" | "Pro" | "Elite";
 
 export default function Home() {
-  const phoneE164 = "593XXXXXXXXX"; // <-- CAMBIA ESTO (solo números, sin +)
+  const phoneE164 = "593992954635"; 
   const waText = encodeURIComponent(
     "Hola, vi tu página y quiero información sobre automatizaciones con IA para mi negocio."
   );
