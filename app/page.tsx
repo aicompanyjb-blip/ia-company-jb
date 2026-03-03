@@ -19,18 +19,18 @@ export default function Home() {
   const prices: Record<BillingPeriod, Record<PlanName, number>> = {
     mensual: {
       Starter: 149,
-      Pro: 799,
-      Elite: 1499
+      Pro: 359,
+      Elite: 599,
     },
     semestral: {
-      Starter: 249,
+      Starter: 789,
       Pro: 1199,
-      Elite: 2299,
+      Elite: 1899,
     },
     anual: {
-      Starter: 499,
-      Pro: 1899,
-      Elite: 2899,
+      Starter: 1499,
+      Pro: 2299,
+      Elite: 3199,
     },
   };
 
