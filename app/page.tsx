@@ -17,9 +17,9 @@ export default function Home() {
   // ✅ Edita aquí tus precios base mensuales
   const baseMonthly = useMemo(
     () => ({
-      Starter: 49,
-      Pro: 99,
-      Elite: 199,
+      Starter: 149,
+      Pro: 699,
+      Elite: 1399,
     }),
     []
   );
