@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 type BillingPeriod = "mensual" | "semestral" | "anual";
+type PlanName = "Starter" | "Pro" | "Elite";
 
 export default function Home() {
   const phoneE164 = "593XXXXXXXXX"; // <-- CAMBIA ESTO (solo números, sin +)
@@ -14,65 +15,49 @@ export default function Home() {
   // ====== Switch Mensual / Semestral / Anual ======
   const [period, setPeriod] = useState<BillingPeriod>("mensual");
 
-  // ✅ Edita aquí tus precios base mensuales
-  const baseMonthly = useMemo(
-    () => ({
+  // ✅ AQUÍ EDITAS LOS PRECIOS MANUALMENTE (uno por cada periodo)
+  const prices: Record<BillingPeriod, Record<PlanName, number>> = {
+    mensual: {
       Starter: 149,
       Pro: 699,
       Elite: 1399,
-    }),
-    []
-  );
+    },
+    semestral: {
+      Starter: 799,
+      Pro: 3699,
+      Elite: 6999,
+    },
+    anual: {
+      Starter: 1499,
+      Pro: 6999,
+      Elite: 12999,
+    },
+  };
 
-  // ✅ Descuentos sugeridos (edita a tu gusto)
-  const discount = useMemo(
-    () => ({
-      mensual: 0, // 0%
-      semestral: 0.1, // 10%
-      anual: 0.2, // 20%
-    }),
-    []
-  );
+  const months: Record<BillingPeriod, number> = {
+    mensual: 1,
+    semestral: 6,
+    anual: 12,
+  };
 
-  const months = useMemo(
-    () => ({
-      mensual: 1,
-      semestral: 6,
-      anual: 12,
-    }),
-    []
-  );
+  const label: Record<BillingPeriod, string> = {
+    mensual: "mes",
+    semestral: "6 meses",
+    anual: "año",
+  };
 
-  const label = useMemo(
-    () => ({
-      mensual: "mes",
-      semestral: "6 meses",
-      anual: "año",
-    }),
-    []
-  );
+  const money = new Intl.NumberFormat("es-EC", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
 
-  const money = useMemo(
-    () =>
-      new Intl.NumberFormat("es-EC", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      }),
-    []
-  );
-
-  function totalPrice(plan: keyof typeof baseMonthly) {
-    const m = baseMonthly[plan];
-    const n = months[period];
-    const d = discount[period];
-    return Math.round(m * n * (1 - d));
+  function price(plan: PlanName) {
+    return prices[period][plan];
   }
 
-  function perMonthEquivalent(plan: keyof typeof baseMonthly) {
-    const total = totalPrice(plan);
-    const n = months[period];
-    return Math.round(total / n);
+  function perMonth(plan: PlanName) {
+    return Math.round(prices[period][plan] / months[period]);
   }
 
   const plans = [
@@ -251,7 +236,10 @@ export default function Home() {
         <h2 className="text-2xl font-bold md:text-3xl">Cómo trabajamos</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-4">
           {[
-            ["1) Diagnóstico", "Entiendo tu negocio y el flujo ideal para tu negocio."],
+            [
+              "1) Diagnóstico",
+              "Entiendo tu negocio y el flujo ideal para tu negocio.",
+            ],
             ["2) Propuesta", "Te presento el bot y las integraciones."],
             ["3) Implementación", "Configuro, pruebo y dejo listo para operar."],
             ["4) Soporte", "Ajustes y mejoras según necesidad y resultados."],
@@ -273,8 +261,8 @@ export default function Home() {
           <div>
             <h2 className="text-2xl font-bold md:text-3xl">Planes</h2>
             <p className="mt-2 max-w-2xl text-white/70">
-              Estos precios son referenciales, se ajustan mediante las integraciones
-              y necesidades de tu negocio.
+              Estos precios son referenciales, se ajustan mediante las
+              integraciones y necesidades de tu negocio.
             </p>
 
             {/* Botones Mensual / Semestral / Anual */}
@@ -291,7 +279,11 @@ export default function Home() {
                   ].join(" ")}
                   type="button"
                 >
-                  {p === "mensual" ? "Mensual" : p === "semestral" ? "Semestral" : "Anual"}
+                  {p === "mensual"
+                    ? "Mensual"
+                    : p === "semestral"
+                    ? "Semestral"
+                    : "Anual"}
                 </button>
               ))}
             </div>
@@ -320,9 +312,9 @@ export default function Home() {
             >
               <p className="text-lg font-semibold">{p.name}</p>
 
-              {/* Precio dinámico */}
+              {/* Precio dinámico (manual por periodo) */}
               <p className="mt-2 text-3xl font-bold">
-                {money.format(totalPrice(p.name))}{" "}
+                {money.format(price(p.name))}{" "}
                 <span className="text-base font-semibold text-white/70">
                   / {label[period]}
                 </span>
@@ -333,7 +325,7 @@ export default function Home() {
                 <p className="mt-2 text-sm text-white/60">
                   Equivale a{" "}
                   <span className="font-semibold text-white/80">
-                    {money.format(perMonthEquivalent(p.name))}
+                    {money.format(perMonth(p.name))}
                   </span>{" "}
                   / mes
                 </p>
