@@ -5,6 +5,33 @@ export const runtime = "nodejs";
 
 type Msg = { role: "user" | "assistant" | "system"; content: string };
 
+function fallbackReply() {
+  return (
+    "Ahora mismo el asistente IA está en mantenimiento (límite de uso). " +
+    "Para una cotización rápida, escríbeme por WhatsApp desde el botón de la página y te atiendo enseguida."
+  );
+}
+
+function isQuotaOrBillingError(e: any) {
+  const status = e?.status;
+  const code = e?.code;
+  const msg = String(e?.message ?? "").toLowerCase();
+
+  return (
+    status === 429 ||
+    code === "insufficient_quota" ||
+    msg.includes("exceeded your current quota") ||
+    msg.includes("insufficient_quota") ||
+    msg.includes("billing") ||
+    msg.includes("quota")
+  );
+}
+
+function isMissingKeyError(e: any) {
+  const msg = String(e?.message ?? "").toLowerCase();
+  return msg.includes("missing credentials") || msg.includes("api_key");
+}
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as { messages?: Msg[] };
@@ -12,7 +39,16 @@ export async function POST(req: Request) {
 
     const last = messages[messages.length - 1];
     if (!last || last.role !== "user" || !last.content?.trim()) {
-      return NextResponse.json({ error: "Missing user message" }, { status: 400 });
+      // Devolvemos un reply amigable (sin error feo)
+      return NextResponse.json({
+        reply:
+          "No alcancé a leer tu mensaje. ¿Puedes escribirlo otra vez? 🙂",
+      });
+    }
+
+    // Si no hay API key, responde bonito
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json({ reply: fallbackReply() });
     }
 
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -32,9 +68,15 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ reply: response.output_text });
   } catch (e: any) {
-    return NextResponse.json(
-      { error: e?.message ?? "Server error" },
-      { status: 500 }
-    );
+    // ✅ Si es 429 / sin cuota / billing, respondemos bonito (sin error técnico)
+    if (isQuotaOrBillingError(e) || isMissingKeyError(e)) {
+      return NextResponse.json({ reply: fallbackReply() });
+    }
+
+    // Cualquier otro error: también lo maquillamos para el usuario
+    return NextResponse.json({
+      reply:
+        "Me encuentro en mantenimiento. Escríbeme por WhatsApp y te atiendo enseguida.",
+    });
   }
 }
