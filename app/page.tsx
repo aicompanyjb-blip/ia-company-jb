@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Analytics } from "@vercel/analytics/next";
 import ChatWidget from "./components/ChatWidget";
+import Link from "next/link";
 
 type BillingPeriod = "mensual" | "semestral" | "anual";
 type PlanName = "Starter" | "Pro" | "Elite";
@@ -124,6 +125,9 @@ export default function Home() {
             <a href="#faq" className="hover:text-white">
               FAQ
             </a>
+            <Link href="/web-con-ia" className="hover:text-white">
+             Web con IA
+             </Link>
           </nav>
 
           <a
