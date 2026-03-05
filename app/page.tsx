@@ -155,9 +155,9 @@ export default function Home() {
             </p>
 
             <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
-              Bots automatizados con IA para WhatsApp que{" "}
+              Bots automatizados con IA para WhatsApp {" "}
               <span className="text-emerald-300">agendan más citas</span> y{" "}
-              <span className="text-emerald-300">no pierden clientes</span>.
+              <span className="text-emerald-300">no pierdas clientes</span>.
             </h1>
 
             <p className="mt-5 text-base leading-relaxed text-white/70 md:text-lg">

@@ -38,7 +38,7 @@ export default function WebConIA() {
           {[
             {
               title: "1) Define el objetivo",
-              desc: "¿Vender? ¿Agendar? ¿Capturar leads? Si no hay objetivo, la web no convierte.",
+              desc: "¿Vender? ¿Agendar? ¿Capturar leads? Si no hay objetivo ayudamos a buscar en base a la necesidad de la empresa.",
             },
             {
               title: "2) Copy con IA",
