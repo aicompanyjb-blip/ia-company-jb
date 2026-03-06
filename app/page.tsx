@@ -206,12 +206,12 @@ export default function Home() {
 
             {/* Indicadores que medimos (sin prometer números fake) */}
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
-              <p className="text-sm font-semibold">Indicadores que medimos</p>
+              <p className="text-sm font-semibold">Necesidades que cubrimos</p>
               <div className="mt-3 grid gap-3 sm:grid-cols-3">
                 {[
-                  ["Tiempo de respuesta", "Segundos, no horas."],
-                  ["Citas confirmadas", "Recordatorios + confirmación."],
-                  ["Leads ordenados", "Registro automático y seguimiento."],
+                  ["Tiempo de respuesta", "Respuesta del bot en segundos."],
+                  ["Citas confirmadas", "Recordatorios + confirmación y seguimiento."],
+                  ["Leads ordenados", "Registro automático."],
                 ].map(([t, d]) => (
                   <div key={t} className="rounded-2xl border border-white/10 bg-zinc-950/40 p-4">
                     <p className="text-sm font-semibold">{t}</p>
@@ -260,39 +260,56 @@ export default function Home() {
       </section>
 
       {/* Para quién es */}
-      <section id="paraquien" className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="text-2xl font-bold md:text-3xl">Para quién es</h2>
-        <p className="mt-2 max-w-3xl text-white/70">
-          Si tu negocio recibe mensajes todo el día, pierde leads o agenda “a mano”, esto te sirve.
-          Aquí unos ejemplos comunes:
-        </p>
+<section id="para-quien-es" className="mx-auto max-w-6xl px-5 py-16">
+  <h2 className="text-2xl font-bold md:text-3xl">Para quién es</h2>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {[
-            {
-              title: "Clínicas / Odontologías",
-              desc: "Admisión, citas, recordatorios, post-consulta, y leads por servicio.",
-            },
-            {
-              title: "Estéticas / Servicios",
-              desc: "Agenda por disponibilidad, catálogo de servicios y seguimiento automático.",
-            },
-            {
-              title: "Airbnb / Rentas",
-              desc: "Respuestas rápidas, check-in/out, reglas de casa y soporte al huésped.",
-            },
-          ].map((c) => (
-            <div
-              key={c.title}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6"
-            >
-              <p className="text-lg font-semibold">{c.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">{c.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+  {/* ✅ Opción B (texto general) */}
+  <p className="mt-2 max-w-3xl text-white/70">
+    Principalmente ayudamos a <span className="font-semibold text-white/80">Clínicas</span>,{" "}
+    <span className="font-semibold text-white/80">Airbnb</span> y{" "}
+    <span className="font-semibold text-white/80">Ecommerce</span> a responder al instante,
+    capturar leads y automatizar seguimiento. Pero si tu caso es más técnico, también lo hacemos:
+    <span className="font-semibold text-white/80">
+      {" "}
+      integraciones a medida, automatización con n8n y extracción de datos SQL
+    </span>
+    .
+  </p>
 
+  <div className="mt-8 grid gap-4 md:grid-cols-3">
+    {[
+      {
+        title: "Clínicas / Odontologías",
+        desc: "Admisión, agendamiento, confirmaciones, recordatorios, seguimiento post-consulta y registro automático de pacientes/leads.",
+      },
+      {
+        title: "Airbnb / Rentas",
+        desc: "Respuestas rápidas, check-in/out, reglas de casa, preguntas frecuentes, soporte al huésped y automatización de mensajes.",
+      },
+      {
+        title: "Ecommerce",
+        desc: "Atención y ventas 24/7, estado de pedidos, catálogo, preguntas frecuentes, captación de leads y seguimiento automatizado.",
+      },
+    ].map((c) => (
+      <div
+        key={c.title}
+        className="rounded-2xl border border-white/10 bg-white/5 p-6"
+      >
+        <p className="text-lg font-semibold">{c.title}</p>
+        <p className="mt-2 text-sm leading-relaxed text-white/70">{c.desc}</p>
+      </div>
+    ))}
+  </div>
+
+  {/* Nota final opcional (queda pro y no rompe el diseño) */}
+  <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+    <p className="text-sm text-white/70">
+      <span className="font-semibold text-white">¿Tu negocio es otro?</span>{" "}
+      También trabajamos a nivel general: automatizaciones internas, integraciones con herramientas
+      existentes (CRMs, Sheets, Calendar) y casos avanzados con SQL.
+    </p>
+  </div>
+</section>
       {/* Demo */}
       <section id="demo" className="mx-auto max-w-6xl px-5 py-16">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
@@ -349,7 +366,7 @@ export default function Home() {
           <div>
             <h2 className="text-2xl font-bold md:text-3xl">Planes</h2>
             <p className="mt-2 max-w-3xl text-white/70">
-              Los planes incluyen implementación, soporte y “qué incluye” para que el consumo (IA/WhatsApp)
+              Los planes incluyen implementación, soporte para que el consumo (IA/WhatsApp)
               no te agarre por sorpresa. En la propuesta te dejo el detalle final según integraciones.
             </p>
 
