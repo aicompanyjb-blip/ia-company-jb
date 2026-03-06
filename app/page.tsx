@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Analytics } from "@vercel/analytics/next";
 import ChatWidget from "./components/ChatWidget";
-import Link from "next/link";
 
 type BillingPeriod = "mensual" | "semestral" | "anual";
 type PlanName = "Starter" | "Pro" | "Elite";
@@ -15,39 +15,26 @@ export default function Home() {
   );
   const waLink = `https://wa.me/${phoneE164}?text=${waText}`;
 
-  // ====== Switch Mensual / Semestral / Anual ======
+  const waDemoText = encodeURIComponent(
+    "Hola, quiero ver una demo rápida de cómo funciona el bot (WhatsApp + Calendar/Sheets)."
+  );
+  const waDemoLink = `https://wa.me/${phoneE164}?text=${waDemoText}`;
+
+  // (Opcional) Si luego pones Calendly/Agenda, pega el link aquí.
+  // Si no tienes, déjalo vacío y el botón se ocultará.
+  const callLink = ""; // ejemplo: "https://calendly.com/tuusuario/15min"
+
   const [period, setPeriod] = useState<BillingPeriod>("mensual");
 
-  // ✅ AQUÍ EDITAS LOS PRECIOS MANUALMENTE (uno por cada periodo)
+  // ✅ PRECIOS (NO TOCO NADA)
   const prices: Record<BillingPeriod, Record<PlanName, number>> = {
-    mensual: {
-      Starter: 149,
-      Pro: 259,
-      Elite: 399,
-    },
-    semestral: {
-      Starter: 579,
-      Pro: 789,
-      Elite: 999,
-    },
-    anual: {
-      Starter: 1299,
-      Pro: 1589,
-      Elite: 1899,
-    },
+    mensual: { Starter: 149, Pro: 359, Elite: 599 },
+    semestral: { Starter: 789, Pro: 1199, Elite: 1899 },
+    anual: { Starter: 1499, Pro: 2299, Elite: 3199 },
   };
 
-  const months: Record<BillingPeriod, number> = {
-    mensual: 1,
-    semestral: 6,
-    anual: 12,
-  };
-
-  const label: Record<BillingPeriod, string> = {
-    mensual: "mes",
-    semestral: "6 meses",
-    anual: "año",
-  };
+  const months: Record<BillingPeriod, number> = { mensual: 1, semestral: 6, anual: 12 };
+  const label: Record<BillingPeriod, string> = { mensual: "mes", semestral: "6 meses", anual: "año" };
 
   const money = new Intl.NumberFormat("es-EC", {
     style: "currency",
@@ -58,45 +45,59 @@ export default function Home() {
   function price(plan: PlanName) {
     return prices[period][plan];
   }
-
   function perMonth(plan: PlanName) {
     return Math.round(prices[period][plan] / months[period]);
   }
 
-  const plans = [
-    {
-      name: "Starter" as const,
-      highlight: false,
+  // ✅ “Qué incluye” (esto es lo que sube conversion y te protege de perder)
+  const includedByPlan: Record<PlanName, { items: string[]; limits: string[] }> = {
+    Starter: {
       items: [
-        "ChatBot WhatsApp admisión",
-        "FAQ servicios/precios",
+        "ChatBot WhatsApp (admisión/consultas)",
+        "FAQs servicios/precios",
+        "Captura de datos (nombre, necesidad, horario)",
         "Registro en Google Sheets/CRM",
-        "Soporte 24/7",
+      ],
+      limits: [
+        "Incluye: 1 flujo principal + 1 iteración de ajustes",
+        "Incluye: hasta 2 cambios menores / mes",
+        "Consumo (IA/WhatsApp) puede variar por uso",
       ],
     },
-    {
-      name: "Pro" as const,
-      highlight: true,
+    Pro: {
       items: [
         "Todo Starter",
-        "Clasificación automática",
+        "Clasificación automática (lead calificado/no calificado)",
         "Agendamiento inteligente",
-        "Recordatorios, seguimiento y confirmación",
-        "Reportes mensuales",
-        "Soporte 24/7",
+        "Recordatorios + confirmación (reduce no-shows)",
+        "Reportes mensuales básicos",
+      ],
+      limits: [
+        "Incluye: 2 flujos + rutas por servicio",
+        "Incluye: hasta 4 cambios menores / mes",
+        "Consumo (IA/WhatsApp) puede variar por uso",
       ],
     },
-    {
-      name: "Elite" as const,
-      highlight: false,
+    Elite: {
       items: [
         "Todo Pro",
         "Integraciones avanzadas (n8n)",
         "Rutas por servicio/sucursal",
         "Seguimiento post-consulta",
-        "Soporte prioritario",
+        "Optimización mensual (mejora de guión y métricas)",
+      ],
+      limits: [
+        "Incluye: multi-servicios / multi-sucursal (según alcance)",
+        "Incluye: hasta 8 cambios menores / mes",
+        "Consumo (IA/WhatsApp) puede variar por uso",
       ],
     },
+  };
+
+  const plans = [
+    { name: "Starter" as const, highlight: false },
+    { name: "Pro" as const, highlight: true },
+    { name: "Elite" as const, highlight: false },
   ];
 
   return (
@@ -113,21 +114,15 @@ export default function Home() {
           </div>
 
           <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
-            <a href="#servicios" className="hover:text-white">
-              Servicios
-            </a>
-            <a href="#planes" className="hover:text-white">
-              Planes
-            </a>
-            <a href="#proceso" className="hover:text-white">
-              Proceso
-            </a>
-            <a href="#faq" className="hover:text-white">
-              FAQ
-            </a>
+            <a href="#servicios" className="hover:text-white">Servicios</a>
+            <a href="#paraquien" className="hover:text-white">Para quién</a>
+            <a href="#demo" className="hover:text-white">Demo</a>
+            <a href="#planes" className="hover:text-white">Planes</a>
+            <a href="#proceso" className="hover:text-white">Proceso</a>
+            <a href="#faq" className="hover:text-white">FAQ</a>
             <Link href="/web-con-ia" className="hover:text-white">
-             Web con IA
-             </Link>
+              Web con IA
+            </Link>
           </nav>
 
           <a
@@ -155,16 +150,15 @@ export default function Home() {
             </p>
 
             <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
-              Bots automatizados con IA para WhatsApp {" "}
+              Bots automatizados con IA para WhatsApp que{" "}
               <span className="text-emerald-300">agendan más citas</span> y{" "}
-              <span className="text-emerald-300">no pierdas clientes</span>.
+              <span className="text-emerald-300">no pierden clientes</span>.
             </h1>
 
             <p className="mt-5 text-base leading-relaxed text-white/70 md:text-lg">
-              Diseño e implemento automatizaciones con IA que convierten WhatsApp
-              en tu mejor vendedor: atención 24/7, calificación de leads,
-              agendamiento y seguimiento con recordatorios. Integración completa
-              con Google Calendar, Sheets y tus flujos de trabajo.
+              Implemento automatizaciones que convierten WhatsApp en tu mejor vendedor:
+              atención 24/7, calificación de leads, agendamiento y seguimiento con recordatorios.
+              Integración con Google Calendar, Sheets y tu proceso actual.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -177,11 +171,22 @@ export default function Home() {
                 Escríbeme por WhatsApp
               </a>
               <a
-                href="#planes"
+                href="#demo"
                 className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-white/10"
               >
-                Ver planes
+                Ver demo
               </a>
+
+              {callLink ? (
+                <a
+                  href={callLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-white/10"
+                >
+                  Agendar llamada
+                </a>
+              ) : null}
             </div>
 
             <div className="mt-10 grid grid-cols-1 gap-3 text-sm text-white/70 sm:grid-cols-3">
@@ -194,10 +199,28 @@ export default function Home() {
                 <p className="mt-1">Agenda en Google Calendar + recordatorios.</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="font-semibold text-white">Reportes</p>
-                <p className="mt-1">Leads y métricas en Sheets.</p>
+                <p className="font-semibold text-white">Orden</p>
+                <p className="mt-1">Leads, citas y métricas en Sheets/CRM.</p>
               </div>
             </div>
+
+            {/* Indicadores que medimos (sin prometer números fake) */}
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+              <p className="text-sm font-semibold">Indicadores que medimos</p>
+              <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                {[
+                  ["Tiempo de respuesta", "Segundos, no horas."],
+                  ["Citas confirmadas", "Recordatorios + confirmación."],
+                  ["Leads ordenados", "Registro automático y seguimiento."],
+                ].map(([t, d]) => (
+                  <div key={t} className="rounded-2xl border border-white/10 bg-zinc-950/40 p-4">
+                    <p className="text-sm font-semibold">{t}</p>
+                    <p className="mt-1 text-xs text-white/60">{d}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -206,23 +229,23 @@ export default function Home() {
       <section id="servicios" className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="text-2xl font-bold md:text-3xl">Servicios</h2>
         <p className="mt-2 max-w-2xl text-white/70">
-          Planes diseñados para que tu WhatsApp responda rápido, capture clientes
+          Automatizaciones diseñadas para que WhatsApp responda rápido, capture clientes
           y cierre citas sin perder tiempo.
         </p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {[
             {
-              title: "Bot para WhatsApp con IA",
-              desc: "Responde mediante FAQs, califica al cliente y agenda datos sin perder ventas.",
+              title: "Bot para WhatsApp (IA + reglas)",
+              desc: "Responde consultas, captura datos y guía al cliente a una acción (agendar / cotizar / comprar).",
             },
             {
               title: "Agendamiento + Recordatorios",
-              desc: "Citas automáticas y confirmación para reducir ausencias (no-shows).",
+              desc: "Citas automáticas, confirmación y recordatorios para reducir ausencias (no-shows).",
             },
             {
               title: "Integraciones",
-              desc: "Google Calendar, Google Sheets y flujos según tu operación.",
+              desc: "Google Calendar, Google Sheets, CRM y flujos según tu operación.",
             },
           ].map((c) => (
             <div
@@ -230,11 +253,75 @@ export default function Home() {
               className="rounded-2xl border border-white/10 bg-white/5 p-6"
             >
               <p className="text-lg font-semibold">{c.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                {c.desc}
-              </p>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">{c.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Para quién es */}
+      <section id="paraquien" className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="text-2xl font-bold md:text-3xl">Para quién es</h2>
+        <p className="mt-2 max-w-3xl text-white/70">
+          Si tu negocio recibe mensajes todo el día, pierde leads o agenda “a mano”, esto te sirve.
+          Aquí unos ejemplos comunes:
+        </p>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: "Clínicas / Odontologías",
+              desc: "Admisión, citas, recordatorios, post-consulta, y leads por servicio.",
+            },
+            {
+              title: "Estéticas / Servicios",
+              desc: "Agenda por disponibilidad, catálogo de servicios y seguimiento automático.",
+            },
+            {
+              title: "Airbnb / Rentas",
+              desc: "Respuestas rápidas, check-in/out, reglas de casa y soporte al huésped.",
+            },
+          ].map((c) => (
+            <div
+              key={c.title}
+              className="rounded-2xl border border-white/10 bg-white/5 p-6"
+            >
+              <p className="text-lg font-semibold">{c.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">{c.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Demo */}
+      <section id="demo" className="mx-auto max-w-6xl px-5 py-16">
+        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <h2 className="text-2xl font-bold md:text-3xl">Demo rápida</h2>
+            <p className="mt-2 max-w-3xl text-white/70">
+              Te muestro el flujo típico: llega el mensaje → el bot responde → agenda → queda registrado.
+            </p>
+          </div>
+
+          <a
+            href={waDemoLink}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-zinc-950 hover:bg-emerald-400"
+          >
+            Pedir demo por WhatsApp
+          </a>
+        </div>
+
+        {/* Placeholder para video / Loom */}
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="aspect-video w-full rounded-2xl border border-white/10 bg-zinc-950/40 p-6">
+            <p className="text-sm font-semibold">Aquí puedes poner un video</p>
+            <p className="mt-2 text-sm text-white/70">
+              Tip: graba pantalla (20–40s) mostrando WhatsApp → Calendar → Sheets y lo embebemos.
+              Si luego me pasas un link (Loom/Drive/YouTube), lo dejo listo.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -243,15 +330,12 @@ export default function Home() {
         <h2 className="text-2xl font-bold md:text-3xl">Cómo trabajamos</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-4">
           {[
-            ["1) Diagnóstico", "Entiendo tu negocio y el flujo ideal para tu negocio."],
-            ["2) Propuesta", "Te presento el bot y las integraciones."],
-            ["3) Implementación", "Configuro, pruebo y dejo listo para operar."],
-            ["4) Soporte", "Ajustes y mejoras según necesidad y resultados."],
+            ["1) Diagnóstico", "Entiendo tu negocio y el flujo ideal (qué preguntas, qué datos, qué acción)."],
+            ["2) Propuesta", "Definimos plan, integraciones y alcance (incluye límites de consumo)."],
+            ["3) Implementación", "Configuro, pruebo y dejo listo para operar con entregables claros."],
+            ["4) Soporte", "Ajustes, mejoras y monitoreo según el plan elegido."],
           ].map(([t, d]) => (
-            <div
-              key={t}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6"
-            >
+            <div key={t} className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <p className="font-semibold">{t}</p>
               <p className="mt-2 text-sm text-white/70">{d}</p>
             </div>
@@ -264,9 +348,9 @@ export default function Home() {
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <h2 className="text-2xl font-bold md:text-3xl">Planes</h2>
-            <p className="mt-2 max-w-2xl text-white/70">
-              Estos precios son referenciales, se ajustan mediante las
-              integraciones y necesidades de tu negocio.
+            <p className="mt-2 max-w-3xl text-white/70">
+              Los planes incluyen implementación, soporte y “qué incluye” para que el consumo (IA/WhatsApp)
+              no te agarre por sorpresa. En la propuesta te dejo el detalle final según integraciones.
             </p>
 
             {/* Botones Mensual / Semestral / Anual */}
@@ -277,9 +361,7 @@ export default function Home() {
                   onClick={() => setPeriod(p)}
                   className={[
                     "rounded-2xl px-4 py-2 text-sm font-semibold transition",
-                    period === p
-                      ? "bg-white/15 text-white"
-                      : "text-white/70 hover:text-white",
+                    period === p ? "bg-white/15 text-white" : "text-white/70 hover:text-white",
                   ].join(" ")}
                   type="button"
                 >
@@ -300,54 +382,67 @@ export default function Home() {
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {plans.map((p) => (
-            <div
-              key={p.name}
-              className={[
-                "rounded-2xl border bg-white/5 p-6",
-                p.highlight
-                  ? "border-emerald-400/40 ring-1 ring-emerald-400/30"
-                  : "border-white/10",
-              ].join(" ")}
-            >
-              <p className="text-lg font-semibold">{p.name}</p>
-
-              <p className="mt-2 text-3xl font-bold">
-                {money.format(price(p.name))}{" "}
-                <span className="text-base font-semibold text-white/70">
-                  / {label[period]}
-                </span>
-              </p>
-
-              {period !== "mensual" && (
-                <p className="mt-2 text-sm text-white/60">
-                  Equivale a{" "}
-                  <span className="font-semibold text-white/80">
-                    {money.format(perMonth(p.name))}
-                  </span>{" "}
-                  / mes
-                </p>
-              )}
-
-              <ul className="mt-5 space-y-2 text-sm text-white/70">
-                {p.items.map((it) => (
-                  <li key={it} className="flex gap-2">
-                    <span className="mt-[3px] h-2 w-2 rounded-full bg-emerald-400/70" />
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href={waLink}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold hover:bg-white/15"
+          {plans.map((p) => {
+            const pack = includedByPlan[p.name];
+            return (
+              <div
+                key={p.name}
+                className={[
+                  "rounded-2xl border bg-white/5 p-6",
+                  p.highlight
+                    ? "border-emerald-400/40 ring-1 ring-emerald-400/30"
+                    : "border-white/10",
+                ].join(" ")}
               >
-                Elegir {p.name}
-              </a>
-            </div>
-          ))}
+                <p className="text-lg font-semibold">{p.name}</p>
+
+                <p className="mt-2 text-3xl font-bold">
+                  {money.format(price(p.name))}{" "}
+                  <span className="text-base font-semibold text-white/70">/ {label[period]}</span>
+                </p>
+
+                {period !== "mensual" && (
+                  <p className="mt-2 text-sm text-white/60">
+                    Equivale a{" "}
+                    <span className="font-semibold text-white/80">{money.format(perMonth(p.name))}</span>{" "}
+                    / mes
+                  </p>
+                )}
+
+                <div className="mt-5 space-y-4">
+                  <div>
+                    <p className="text-sm font-semibold text-white">Incluye</p>
+                    <ul className="mt-3 space-y-2 text-sm text-white/70">
+                      {pack.items.map((it) => (
+                        <li key={it} className="flex gap-2">
+                          <span className="mt-[3px] h-2 w-2 rounded-full bg-emerald-400/70" />
+                          <span>{it}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-zinc-950/40 p-4">
+                    <p className="text-xs font-semibold text-white/80">Notas de alcance</p>
+                    <ul className="mt-2 space-y-1 text-xs text-white/60">
+                      {pack.limits.map((it) => (
+                        <li key={it}>• {it}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <a
+                  href={waLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold hover:bg-white/15"
+                >
+                  Cotizar {p.name}
+                </a>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -359,25 +454,22 @@ export default function Home() {
           {[
             [
               "¿Funciona con mi WhatsApp?",
-              "Sí. Se conecta con tu flujo actual y se adapta al negocio. Definimos el mejor método según tu operación.",
+              "Sí. Se adapta a tu operación. Definimos el mejor método según tu negocio y el proveedor de WhatsApp API.",
             ],
             [
               "¿Cuánto tarda?",
-              "Un MVP suele estar listo en 3–7 días, dependiendo de las integraciones y el alcance.",
+              "Un MVP suele estar listo en 3–7 días (depende de integraciones y alcance).",
             ],
             [
               "¿Qué necesito para integrar?",
-              "Depende de lo que quieras conectar (Calendar, Sheets, CRM, etc.). Lo adaptamos a tu proceso y herramientas.",
+              "Depende: Calendar, Sheets, CRM, formularios, n8n, etc. En diagnóstico definimos lo mínimo viable.",
             ],
             [
               "¿Qué pasa si quiero cambios?",
-              "Nos escribes por WhatsApp o puedes hablar con la IA aquí en la web para guiarte.",
+              "Se trabaja por iteraciones según plan. Puedes escribir por WhatsApp y lo ajusto contigo.",
             ],
           ].map(([q, a]) => (
-            <div
-              key={q}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6"
-            >
+            <div key={q} className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <p className="font-semibold">{q}</p>
               <p className="mt-2 text-sm leading-relaxed text-white/70">{a}</p>
             </div>
@@ -406,16 +498,15 @@ export default function Home() {
           </div>
 
           <p className="mt-10 text-xs text-white/40">
-            © {new Date().getFullYear()} IA COMPANY JB, todos los derechos
-            reservados.
+            © {new Date().getFullYear()} IA COMPANY JB, todos los derechos reservados.
           </p>
         </div>
       </footer>
 
-      {/* ✅ Burbuja de chat IA */}
+      {/* Burbuja de chat (si no hay créditos, igual sirve como “asistente de cotización”) */}
       <ChatWidget />
 
-      {/* ✅ Analytics (opcional) */}
+      {/* Analytics */}
       <Analytics />
     </main>
   );
