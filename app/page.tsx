@@ -329,17 +329,6 @@ export default function Home() {
             Pedir demo por WhatsApp
           </a>
         </div>
-
-        {/* Placeholder para video / Loom */}
-        <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
-          <div className="aspect-video w-full rounded-2xl border border-white/10 bg-zinc-950/40 p-6">
-            <p className="text-sm font-semibold">Aquí puedes poner un video</p>
-            <p className="mt-2 text-sm text-white/70">
-              Tip: graba pantalla (20–40s) mostrando WhatsApp → Calendar → Sheets y lo embebemos.
-              Si luego me pasas un link (Loom/Drive/YouTube), lo dejo listo.
-            </p>
-          </div>
-        </div>
       </section>
 
       {/* Proceso */}
