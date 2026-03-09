@@ -31,7 +31,7 @@ export default function TestimonialSection({ waLink }: { waLink: string }) {
               poster="/videos/Testimonio-poster.jpg"
             >
               {/* ✅ recomendado */}
-              <source src="/videos/Testimonio.mp4" type="video/mp4" />
+              <source src="/videos/Testimonios.mp4" type="video/mp4" />
 
               {/* opcional si subes webm */}
               {/* <source src="/videos/testimonio.webm" type="video/webm" /> */}
