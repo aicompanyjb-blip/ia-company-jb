@@ -29,8 +29,8 @@ export default function Home() {
   // ✅ PRECIOS (NO TOCO NADA)
   const prices: Record<BillingPeriod, Record<PlanName, number>> = {
     mensual: { Starter: 149, Pro: 359, Elite: 599 },
-    semestral: { Starter: 789, Pro: 1199, Elite: 1899 },
-    anual: { Starter: 1499, Pro: 2299, Elite: 3199 },
+    semestral: { Starter: 389, Pro: 659, Elite: 799 },
+    anual: { Starter: 1299, Pro: 1599, Elite: 1799 },
   };
 
   const months: Record<BillingPeriod, number> = { mensual: 1, semestral: 6, anual: 12 };
@@ -328,7 +328,7 @@ export default function Home() {
           >
             Pedir demo por WhatsApp
           </a>
-        </div>
+        </div>  
       </section>
 
       {/* Proceso */}
