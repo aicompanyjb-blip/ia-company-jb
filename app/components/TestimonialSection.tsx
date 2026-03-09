@@ -41,7 +41,6 @@ export default function TestimonialSection({ waLink }: { waLink: string }) {
           </div>
 
           <p className="mt-3 text-xs text-white/50">
-            Tip: si no se ve en celular, conviértelo a MP4 (H.264).
           </p>
         </div>
 
