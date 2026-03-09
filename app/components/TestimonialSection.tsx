@@ -56,8 +56,8 @@ export default function TestimonialSection({ waLink }: { waLink: string }) {
           </div>
 
           <p className="mt-4 text-lg font-semibold leading-relaxed">
-            “Pasamos de responder tarde a atender al instante. Ahora el WhatsApp
-            agenda, confirma y nos deja todo registrado. Es otro nivel.”
+            “Caso real – Clínica: este video muestra una demo donde el paciente agenda desde la web y el sistema lo registra automáticamente.
+Si quieres, lo adaptamos a tu WhatsApp con respuestas 24/7, agendamiento, recordatorios y registro en Sheets/CRM.”
           </p>
 
           <div className="mt-5 space-y-3 text-sm text-white/70">
