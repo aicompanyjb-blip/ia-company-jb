@@ -28,10 +28,10 @@ export default function TestimonialSection({ waLink }: { waLink: string }) {
               controls
               preload="metadata"
               className="h-full w-full"
-              poster="/videos/testimonio-poster.jpg"
+              poster="/videos/Testimonio-poster.jpg"
             >
               {/* ✅ recomendado */}
-              <source src="/videos/testimonio.mp4" type="video/mp4" />
+              <source src="/videos/Testimonio.mp4" type="video/mp4" />
 
               {/* opcional si subes webm */}
               {/* <source src="/videos/testimonio.webm" type="video/webm" /> */}
