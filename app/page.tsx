@@ -6,7 +6,6 @@ import { Analytics } from "@vercel/analytics/next";
 import ChatWidget from "./components/ChatWidget";
 import TestimonialSection from "./components/TestimonialSection";
 
-type BillingPeriod = "mensual" | "semestral" | "anual";
 type PlanName = "Starter" | "Pro" | "Elite";
 
 export default function Home() {
@@ -25,33 +24,12 @@ export default function Home() {
   // Si no tienes, déjalo vacío y el botón se ocultará.
   const callLink = ""; // ejemplo: "https://calendly.com/tuusuario/15min"
 
-  const [period, setPeriod] = useState<BillingPeriod>("mensual");
-
-  // ✅ PRECIOS (NO TOCO NADA)
-  const prices: Record<BillingPeriod, Record<PlanName, number>> = {
-    mensual: { Starter: 99, Pro: 179, Elite: 299 },
-    semestral: { Starter: 440, Pro: 859, Elite: 1235 },
-    anual: { Starter: 999, Pro: 1499, Elite: 1799 },
-  };
-
   // ✅ Implementación (pago único) — edita estos valores
 const setupFee: Record<PlanName, number> = {
   Starter: 199,
   Pro: 299,
   Elite: 399,
 };
-
-  const months: Record<BillingPeriod, number> = {
-    mensual: 1,
-    semestral: 6,
-    anual: 12,
-  };
-
-  const label: Record<BillingPeriod, string> = {
-    mensual: "mes",
-    semestral: "6 meses",
-    anual: "año",
-  };
 
   const money = new Intl.NumberFormat("es-EC", {
     style: "currency",
@@ -60,12 +38,8 @@ const setupFee: Record<PlanName, number> = {
   });
 
   function price(plan: PlanName) {
-    return prices[period][plan];
-  }
-
-  function perMonth(plan: PlanName) {
-    return Math.round(prices[period][plan] / months[period]);
-  }
+  return monthlyPrices[plan];
+}
 
   // ✅ “Qué incluye” (esto es lo que sube conversión y te protege de perder)
   const includedByPlan: Record<PlanName, { items: string[]; limits: string[] }> =
@@ -424,28 +398,6 @@ const setupFee: Record<PlanName, number> = {
               (IA/WhatsApp) no te agarre por sorpresa. En la propuesta te dejo el
               detalle final según integraciones.
             </p>
-
-            <div className="mt-6 inline-flex rounded-2xl border border-white/10 bg-white/5 p-1">
-              {(["mensual", "semestral", "anual"] as BillingPeriod[]).map((p) => (
-                <button
-                  key={p}
-                  onClick={() => setPeriod(p)}
-                  className={[
-                    "rounded-2xl px-4 py-2 text-sm font-semibold transition",
-                    period === p
-                      ? "bg-white/15 text-white"
-                      : "text-white/70 hover:text-white",
-                  ].join(" ")}
-                  type="button"
-                >
-                  {p === "mensual"
-                    ? "Mensual"
-                    : p === "semestral"
-                    ? "Semestral"
-                    : "Anual"}
-                </button>
-              ))}
-            </div>
           </div>
 
           <a
@@ -473,12 +425,10 @@ const setupFee: Record<PlanName, number> = {
               >
                 <p className="text-lg font-semibold">{p.name}</p>
 
-                <p className="mt-2 text-3xl font-bold">
-                  {money.format(price(p.name))}{" "}
-                  <span className="text-base font-semibold text-white/70">
-                    / {label[period]}
-                  </span>
-                </p>
+              <p className="mt-2 text-3xl font-bold">
+  {money.format(price(p.name))}{" "}
+  <span className="text-base font-semibold text-white/70">/ mes</span>
+</p>
 
                 {/* Implementación (pago único) */}
 <div className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-2 text-sm">
