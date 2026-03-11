@@ -34,6 +34,13 @@ export default function Home() {
     anual: { Starter: 1299, Pro: 1599, Elite: 1799 },
   };
 
+  // ✅ Implementación (pago único) — edita estos valores
+const setupFee: Record<PlanName, number> = {
+  Starter: 199,
+  Pro: 399,
+  Elite: 699,
+};
+
   const months: Record<BillingPeriod, number> = {
     mensual: 1,
     semestral: 6,
@@ -469,6 +476,13 @@ export default function Home() {
                     / {label[period]}
                   </span>
                 </p>
+
+                {/* Implementación (pago único) */}
+<div className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-2 text-sm">
+  <span className="font-semibold text-white/80">Implementación:</span>
+  <span className="font-bold text-emerald-200">{money.format(setupFee[p.name])}</span>
+  <span className="text-white/60">(única vez)</span>
+</div>
 
                 {period !== "mensual" && (
                   <p className="mt-2 text-sm text-white/60">
