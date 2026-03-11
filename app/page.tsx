@@ -29,16 +29,16 @@ export default function Home() {
 
   // ✅ PRECIOS (NO TOCO NADA)
   const prices: Record<BillingPeriod, Record<PlanName, number>> = {
-    mensual: { Starter: 149, Pro: 359, Elite: 599 },
-    semestral: { Starter: 389, Pro: 659, Elite: 799 },
-    anual: { Starter: 1299, Pro: 1599, Elite: 1799 },
+    mensual: { Starter: 99, Pro: 179, Elite: 299 },
+    semestral: { Starter: 440, Pro: 859, Elite: 1235 },
+    anual: { Starter: 999, Pro: 1499, Elite: 1799 },
   };
 
   // ✅ Implementación (pago único) — edita estos valores
 const setupFee: Record<PlanName, number> = {
   Starter: 199,
-  Pro: 399,
-  Elite: 699,
+  Pro: 299,
+  Elite: 399,
 };
 
   const months: Record<BillingPeriod, number> = {
@@ -481,7 +481,7 @@ const setupFee: Record<PlanName, number> = {
 <div className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-2 text-sm">
   <span className="font-semibold text-white/80">Implementación:</span>
   <span className="font-bold text-emerald-200">{money.format(setupFee[p.name])}</span>
-  <span className="text-white/60">(única vez)</span>
+  <span className="text-white/60">(única vez) Piloto 30 dias</span>
 </div>
 
                 {period !== "mensual" && (
