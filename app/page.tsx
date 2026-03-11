@@ -26,9 +26,9 @@ export default function Home() {
 
   // ✅ Implementación (pago único) — edita estos valores
 const setupFee: Record<PlanName, number> = {
-  Starter: 199,
-  Pro: 299,
-  Elite: 399,
+  Starter: 299,
+  Pro: 349,
+  Elite: 559,
 };
 
   const money = new Intl.NumberFormat("es-EC", {
