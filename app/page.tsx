@@ -25,16 +25,16 @@ export default function Home() {
 
   // ✅ Precios SOLO mensuales
   const monthlyPrices: Record<PlanName, number> = {
-    Starter: 149,
-    Pro: 359,
-    Elite: 599,
+    Starter: 99,
+    Pro: 179,
+    Elite: 299,
   };
 
   // ✅ Implementación (pago único) — edita estos valores
   const setupFee: Record<PlanName, number> = {
     Starter: 299,
     Pro: 349,
-    Elite: 559,
+    Elite: 599,
   };
 
   const money = new Intl.NumberFormat("es-EC", {
@@ -399,9 +399,11 @@ export default function Home() {
           <div>
             <h2 className="text-2xl font-bold md:text-3xl">Planes</h2>
             <p className="mt-2 max-w-3xl text-white/70">
-              Precios mensuales + implementación (pago único). En la propuesta se
-              ajusta según integraciones y alcance.
-            </p>
+  La mensualidad y la implementación son <span className="font-semibold text-white/80">pagos distintos</span>:{" "}
+  <span className="font-semibold text-white/80">mensualidad recurrente</span> +{" "}
+  <span className="font-semibold text-white/80">implementación única</span> (una sola vez).
+  En la propuesta se ajusta según integraciones y alcance.
+</p>
           </div>
 
           <a
@@ -435,6 +437,11 @@ export default function Home() {
                     / mes
                   </span>
                 </p>
+
+                <p className="mt-1 text-sm text-white/60">
+  + <span className="font-semibold text-white/80">{money.format(setupFee[p.name])}</span>{" "}
+  <span className="text-white/60">de implementación (única vez)</span>
+</p>
 
                 {/* Implementación (pago único) */}
                 <div className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-2 text-sm">
