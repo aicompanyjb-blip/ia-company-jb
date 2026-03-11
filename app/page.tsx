@@ -438,11 +438,6 @@ export default function Home() {
                   </span>
                 </p>
 
-                <p className="mt-1 text-sm text-white/60">
-  + <span className="font-semibold text-white/80">{money.format(setupFee[p.name])}</span>{" "}
-  <span className="text-white/60">de implementación (única vez)</span>
-</p>
-
                 {/* Implementación (pago único) */}
                 <div className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-2 text-sm">
                   <span className="font-semibold text-white/80">
