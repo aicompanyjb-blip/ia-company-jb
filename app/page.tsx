@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { Analytics } from "@vercel/analytics/next";
 import ChatWidget from "./components/ChatWidget";
 import TestimonialSection from "./components/TestimonialSection";
@@ -24,12 +23,19 @@ export default function Home() {
   // Si no tienes, déjalo vacío y el botón se ocultará.
   const callLink = ""; // ejemplo: "https://calendly.com/tuusuario/15min"
 
+  // ✅ Precios SOLO mensuales
+  const monthlyPrices: Record<PlanName, number> = {
+    Starter: 149,
+    Pro: 359,
+    Elite: 599,
+  };
+
   // ✅ Implementación (pago único) — edita estos valores
-const setupFee: Record<PlanName, number> = {
-  Starter: 299,
-  Pro: 349,
-  Elite: 559,
-};
+  const setupFee: Record<PlanName, number> = {
+    Starter: 299,
+    Pro: 349,
+    Elite: 559,
+  };
 
   const money = new Intl.NumberFormat("es-EC", {
     style: "currency",
@@ -38,8 +44,8 @@ const setupFee: Record<PlanName, number> = {
   });
 
   function price(plan: PlanName) {
-  return monthlyPrices[plan];
-}
+    return monthlyPrices[plan];
+  }
 
   // ✅ “Qué incluye” (esto es lo que sube conversión y te protege de perder)
   const includedByPlan: Record<PlanName, { items: string[]; limits: string[] }> =
@@ -55,7 +61,7 @@ const setupFee: Record<PlanName, number> = {
           "Incluye: 1 flujo principal + 1 iteración de ajustes",
           "Incluye: hasta 2 cambios menores / mes",
           "Consumo (IA/WhatsApp) puede variar por uso",
-          "La implementacion dura 30 dias (1 mes)"
+          "La implementación dura 30 días (1 mes)",
         ],
       },
       Pro: {
@@ -70,7 +76,7 @@ const setupFee: Record<PlanName, number> = {
           "Incluye: 2 flujos + rutas por servicio",
           "Incluye: hasta 4 cambios menores / mes",
           "Consumo (IA/WhatsApp) puede variar por uso",
-          "La implementacion dura 30 dias (1 mes)"
+          "La implementación dura 30 días (1 mes)",
         ],
       },
       Elite: {
@@ -85,7 +91,7 @@ const setupFee: Record<PlanName, number> = {
           "Incluye: multi-servicios / multi-sucursal (según alcance)",
           "Incluye: hasta 8 cambios menores / mes",
           "Consumo (IA/WhatsApp) puede variar por uso",
-          "La implementacion dura 30 dias (1 mes)"
+          "La implementación dura 30 días (1 mes)",
         ],
       },
     };
@@ -113,7 +119,6 @@ const setupFee: Record<PlanName, number> = {
             <a href="#servicios" className="hover:text-white">
               Servicios
             </a>
-            {/* ✅ corregido: antes estaba #paraquien */}
             <a href="#para-quien-es" className="hover:text-white">
               Para quién
             </a>
@@ -394,9 +399,8 @@ const setupFee: Record<PlanName, number> = {
           <div>
             <h2 className="text-2xl font-bold md:text-3xl">Planes</h2>
             <p className="mt-2 max-w-3xl text-white/70">
-              Los planes incluyen implementación, soporte para que el consumo
-              (IA/WhatsApp) no te agarre por sorpresa. En la propuesta te dejo el
-              detalle final según integraciones.
+              Precios mensuales + implementación (pago único). En la propuesta se
+              ajusta según integraciones y alcance.
             </p>
           </div>
 
@@ -425,27 +429,23 @@ const setupFee: Record<PlanName, number> = {
               >
                 <p className="text-lg font-semibold">{p.name}</p>
 
-              <p className="mt-2 text-3xl font-bold">
-  {money.format(price(p.name))}{" "}
-  <span className="text-base font-semibold text-white/70">/ mes</span>
-</p>
+                <p className="mt-2 text-3xl font-bold">
+                  {money.format(price(p.name))}{" "}
+                  <span className="text-base font-semibold text-white/70">
+                    / mes
+                  </span>
+                </p>
 
                 {/* Implementación (pago único) */}
-<div className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-2 text-sm">
-  <span className="font-semibold text-white/80">Implementación:</span>
-  <span className="font-bold text-emerald-200">{money.format(setupFee[p.name])}</span>
-  <span className="text-white/60">(única vez) </span>
-</div>
-
-                {period !== "mensual" && (
-                  <p className="mt-2 text-sm text-white/60">
-                    Equivale a{" "}
-                    <span className="font-semibold text-white/80">
-                      {money.format(perMonth(p.name))}
-                    </span>{" "}
-                    / mes
-                  </p>
-                )}
+                <div className="mt-3 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-2 text-sm">
+                  <span className="font-semibold text-white/80">
+                    Implementación:
+                  </span>
+                  <span className="font-bold text-emerald-200">
+                    {money.format(setupFee[p.name])}
+                  </span>
+                  <span className="text-white/60">(única vez)</span>
+                </div>
 
                 <div className="mt-5 space-y-4">
                   <div>
@@ -520,7 +520,7 @@ const setupFee: Record<PlanName, number> = {
         </div>
       </section>
 
-      {/* ✅ Testimonio (antes lo importabas pero NO salía porque no estaba aquí) */}
+      {/* Testimonio */}
       <TestimonialSection waLink={waLink} />
 
       {/* Footer CTA */}
@@ -550,10 +550,8 @@ const setupFee: Record<PlanName, number> = {
         </div>
       </footer>
 
-      {/* Burbuja de chat */}
       <ChatWidget />
 
-      {/* Analytics */}
       <Analytics />
     </main>
   );
