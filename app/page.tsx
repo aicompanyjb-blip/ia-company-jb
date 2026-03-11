@@ -96,6 +96,7 @@ const setupFee: Record<PlanName, number> = {
           "Incluye: 2 flujos + rutas por servicio",
           "Incluye: hasta 4 cambios menores / mes",
           "Consumo (IA/WhatsApp) puede variar por uso",
+          "La implementacion dura 30 dias (1 mes)"
         ],
       },
       Elite: {
@@ -110,6 +111,7 @@ const setupFee: Record<PlanName, number> = {
           "Incluye: multi-servicios / multi-sucursal (según alcance)",
           "Incluye: hasta 8 cambios menores / mes",
           "Consumo (IA/WhatsApp) puede variar por uso",
+          "La implementacion dura 30 dias (1 mes)"
         ],
       },
     };
