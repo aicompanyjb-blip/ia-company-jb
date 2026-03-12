@@ -453,7 +453,7 @@ export default function Home() {
     controls
     preload="metadata"
     playsInline
-    className="w-full h-auto aspect-video"
+    className="w-full min-h-[260px] object-contain bg-black"
   >
     <source src="/videos/testimonio.mp4" type="video/mp4" />
     Tu navegador no puede reproducir este video.
