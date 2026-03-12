@@ -230,8 +230,7 @@ export default function Home() {
       <section id="solucion" className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="text-2xl font-bold md:text-3xl">Solución</h2>
         <p className="mt-2 max-w-2xl text-white/70">
-          Un sistema para que tu clínica atienda pacientes al instante, agende citas y reduzca ausencias,
-          sin depender de que alguien responda todo el día.
+          Un sistema para que tu clínica atienda pacientes al instante, agende citas y reduzca ausencias, sin depender de que alguien responda todo el día.
         </p>
 
       <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
@@ -452,7 +451,7 @@ export default function Home() {
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900">
               <video controls preload="metadata" className="h-full w-full">
                 {/* Ajusta la ruta si tu video está en otro lado */}
-                <source src="/videos/testimonios.mp4" type="video/mp4" />
+                <source src="/public/videos/testimonios.mp4" type="video/mp4" />
                 Tu navegador no puede reproducir este video.
               </video>
             </div>
