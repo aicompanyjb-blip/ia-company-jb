@@ -306,9 +306,9 @@ export default function Home() {
             <p className="mt-2 max-w-3xl text-white/70">
               La mensualidad y la implementación son{" "}
               <span className="font-semibold text-white/80">pagos distintos</span>:{" "}
-              <span className="font-semibold text-white/80">mensualidad recurrente</span> +{" "}
+              <span className="font-semibold text-white/80">cubre soporte, mantenimiento y mejoras segun el plan contratado,</span> +{" "}
               <span className="font-semibold text-white/80">implementación única</span> (una sola vez).
-              Se ajusta según integraciones y alcance.
+              cubre el dieño, configuracion, conexion y pone en marcha el sistema
             </p>
           </div>
 
@@ -469,7 +469,7 @@ export default function Home() {
                 Caso clínico
               </span>
               <span>•</span>
-              <span>Flujo real</span>
+              <span>Flujo real en Web</span>
             </div>
 
             <p className="mt-4 text-lg font-semibold leading-relaxed">
