@@ -287,59 +287,48 @@ export default function Home() {
       </section>
 
       {/* Para quién es */}
-      <section id="para-quien-es" className="mx-auto max-w-6xl px-5 py-16">
-        <h2 className="text-2xl font-bold md:text-3xl">Para quién es</h2>
+{/* Para quién es (solo clínicas) */}
+<section id="para-quien-es" className="mx-auto max-w-6xl px-5 py-16">
+  <h2 className="text-2xl font-bold md:text-3xl">Para quién es</h2>
 
-        <p className="mt-2 max-w-3xl text-white/70">
-          Principalmente ayudamos a{" "}
-          <span className="font-semibold text-white/80">Clínicas</span>,{" "}
-          <span className="font-semibold text-white/80">Airbnb</span> y{" "}
-          <span className="font-semibold text-white/80">Ecommerce</span> a
-          responder al instante, capturar leads y automatizar seguimiento. Pero
-          si tu caso es más técnico, también lo hacemos:{" "}
-          <span className="font-semibold text-white/80">
-            integraciones a medida, automatización con n8n y extracción de datos
-            SQL
-          </span>
-          .
-        </p>
+  <p className="mt-2 max-w-3xl text-white/70">
+    Nos enfocamos principalmente en <span className="font-semibold text-white/80">Clínicas y Odontologías</span>{" "}
+    que necesitan responder rápido, organizar pacientes y agendar citas sin perder leads.
+    Automatizamos el proceso completo: atención, calificación, agendamiento, confirmación y registro.
+  </p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {[
-            {
-              title: "Clínicas / Odontologías",
-              desc: "Admisión, agendamiento, confirmaciones, recordatorios, seguimiento post-consulta y registro automático de pacientes/leads.",
-            },
-            {
-              title: "Airbnb / Rentas",
-              desc: "Respuestas rápidas, check-in/out, reglas de casa, preguntas frecuentes, soporte al huésped y automatización de mensajes.",
-            },
-            {
-              title: "Ecommerce",
-              desc: "Atención y ventas 24/7, estado de pedidos, catálogo, preguntas frecuentes, captación de leads y seguimiento automatizado.",
-            },
-          ].map((c) => (
-            <div
-              key={c.title}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6"
-            >
-              <p className="text-lg font-semibold">{c.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
-                {c.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+  <div className="mt-8 grid gap-4 md:grid-cols-3">
+    {[
+      {
+        title: "Admisión y atención 24/7",
+        desc: "Respuestas instantáneas, preguntas frecuentes, horarios, ubicación, servicios y captura de datos del paciente.",
+      },
+      {
+        title: "Citas + confirmación",
+        desc: "Agendamiento inteligente, recordatorios y confirmación para reducir no-shows (ausencias).",
+      },
+      {
+        title: "Registro y seguimiento",
+        desc: "Registro automático en Sheets/CRM, segmentación por tratamiento y seguimiento post-consulta (según tu flujo).",
+      },
+    ].map((c) => (
+      <div
+        key={c.title}
+        className="rounded-2xl border border-white/10 bg-white/5 p-6"
+      >
+        <p className="text-lg font-semibold">{c.title}</p>
+        <p className="mt-2 text-sm leading-relaxed text-white/70">{c.desc}</p>
+      </div>
+    ))}
+  </div>
 
-        <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
-          <p className="text-sm text-white/70">
-            <span className="font-semibold text-white">¿Tu negocio es otro?</span>{" "}
-            También trabajamos a nivel general: automatizaciones internas,
-            integraciones con herramientas existentes (CRMs, Sheets, Calendar) y
-            casos avanzados con SQL.
-          </p>
-        </div>
-      </section>
+  <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+    <p className="text-sm text-white/70">
+      <span className="font-semibold text-white">¿Tu clínica tiene varios doctores o sucursales?</span>{" "}
+      También lo armamos por especialidad, doctor o sede, con rutas y reportes según tu operación.
+    </p>
+  </div>
+</section>
 
       {/* Demo */}
       <section id="demo" className="mx-auto max-w-6xl px-5 py-16">
