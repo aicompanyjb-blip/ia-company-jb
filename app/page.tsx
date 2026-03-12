@@ -451,7 +451,7 @@ export default function Home() {
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900">
               <video controls preload="metadata" className="h-full w-full">
                 {/* Ajusta la ruta si tu video está en otro lado */}
-                <source src="ia-company-jb/public/videos/testimonios.mp4" type="video/mp4" />
+                <source src="c:\Users\Jaime\Desktop\IA COMANY WEB\ia-company-jb\public\videos\testimonios.mp4" type="video/mp4" />
                 Tu navegador no puede reproducir este video.
               </video>
             </div>
