@@ -448,16 +448,14 @@ export default function Home() {
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {/* Video */}
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <div className="overflow-hidden rounded-2xl border border-white/10 bg-black">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-black">
   <video
     controls
-    preload="metadata"
+    preload="auto"
     playsInline
-    className="w-full min-h-[260px] object-contain bg-black"
-  >
-    <source src="/videos/testimonios.mp4" type="video/mp4" />
-    Tu navegador no puede reproducir este video.
-  </video>
+    className="w-full h-auto"
+    src="/videos/testimonio.mp4#t=0.001"
+  />
 </div>
             <p className="mt-3 text-xs text-white/50">
               Si no se ve en celular, asegúrate que sea MP4 (H.264).
