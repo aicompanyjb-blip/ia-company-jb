@@ -234,6 +234,14 @@ export default function Home() {
           sin depender de que alguien responda todo el día.
         </p>
 
+      <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+  <p className="text-sm text-white/70">
+    <span className="font-semibold text-white">Especializado para odontología:</span>{" "}
+    recepción de pacientes, agendamiento, confirmación y seguimiento post-consulta.
+    Si tu clínica maneja varios doctores o sedes, lo configuramos por rutas.
+  </p>
+</div>
+
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {[
             {
@@ -444,7 +452,7 @@ export default function Home() {
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900">
               <video controls preload="metadata" className="h-full w-full">
                 {/* Ajusta la ruta si tu video está en otro lado */}
-                <source src="/videos/testimonio.mp4" type="video/mp4" />
+                <source src="/videos/testimonios.mp4" type="video/mp4" />
                 Tu navegador no puede reproducir este video.
               </video>
             </div>
