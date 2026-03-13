@@ -226,14 +226,21 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="Que resuelve" className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="text-2xl font-bold md:text-3xl">¿Qué resuelve nuestro sistema?</h2>
+        <p className="mt-2 max-w-2xl text-white/70">
+        Nuestro sistema automatiza la atención por WhatsApp para que tu clínica responda más rápido, ordene mejor sus consultas y convierta más conversaciones en citas confirmadas. Reduce la carga manual en recepción, evita mensajes perdidos, mejora el seguimiento y ayuda a que cada paciente reciba una respuesta clara, rápida y profesional.
+        </p>
+        </section>
+
       {/* SOLUCIÓN (antes Servicios) */}
-      <section id="solucion" className="mx-auto max-w-6xl px-5 py-16">
+       <section id="solucion" className="mx-auto max-w-6xl px-5 py-16">
         <h2 className="text-2xl font-bold md:text-3xl">Solución</h2>
         <p className="mt-2 max-w-2xl text-white/70">
-          Un sistema para que tu clínica atienda pacientes al instante, agende citas y reduzca ausencias, sin depender de que alguien responda todo el día.
+        Un sistema para que tu clínica atienda pacientes al instante, agende citas y reduzca ausencias, sin depender de que alguien responda todo el día.
         </p>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+       <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
   <p className="text-sm text-white/70">
     <span className="font-semibold text-white">Especializado para odontología:</span>{" "}
     recepción de pacientes, agendamiento, confirmación y seguimiento post-consulta.
@@ -308,7 +315,7 @@ export default function Home() {
               <span className="font-semibold text-white/80">pagos distintos</span>:{" "}
               <span className="font-semibold text-white/80">cubre soporte, mantenimiento y mejoras segun el plan contratado,</span> +{" "}
               <span className="font-semibold text-white/80">implementación única</span> (una sola vez).
-              cubre el dieño, configuracion, conexion y pone en marcha el sistema
+              cubre el dieño, configuracion, conexion y pone el sistema en marcha.
             </p>
           </div>
 
